@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  description: "This is a Live Server API."
+  version: "1.0.0"
+  title: "Live Server API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "liveserverpy.herokuapp.com"
+basePath: "/api/v1"
+tags:
+- name: "Products"
+  description: "Everything about your Products"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /products:
+    get:
+      tags:
+      - "products"
+      summary: "Get products info"
+      description: "Get products info"
+      operationId: "getProductsInfo"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "cate"
+        in: "query"
+        description: "指定哪個分類下的商品"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid status value"
+  /products/{goodId}:
+    get:
+      tags:
+      - "products"
+      summary: "Get products info"
+      description: "Get A product info"
+      operationId: "getProductInfoByID"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "goodId"
+        in: "path"
+        description: "指定哪個商品"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid status value"
+  /basket:
+    get:
+      tags:
+      - "basket"
+      summary: "Get basket info"
+      description: "Get basket info"
+      operationId: "getBasketInfo"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "access_token"
+        in: "query"
+        description: "指定用戶token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid status value"
+    post:
+      tags:
+      - "basket"
+      summary: "Add basket"
+      description: "Add A product to basket"
+      operationId: "addProductToBasket"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "goodId"
+        in: "path"
+        description: "指定哪個商品ID"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid status value"          
+definitions:
+  Product:
+    type: "object"
+    properties:
+      goodId:
+        type: "integer"
+        format: "int64"
+      price:
+        type: "integer"
+        format: "int64"
+      promoMsg:
+        type: "string"
+        description: "name"
+      image:
+        type: "string"
+        description: "name"
+      name:
+        type: "string"
+        description: "name"
+      cateId:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Product"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
