@@ -7,7 +7,7 @@ from Controllers.Product import *
 from Controllers.Cart import *
 from Models.db__init import db_init, db
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 CORS(app)
 app.config.from_object(config['default'])
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
