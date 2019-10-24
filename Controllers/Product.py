@@ -11,7 +11,6 @@ class Product(Resource):
     decorators = [auth.login_required]
     # 取得商品(列表)資料
     def get(self, id=None):
-        print("there is no cache")
         args = parser.parse_args()
         goodId = id
         cateId = args['cate'] if 'cate' in args else None
@@ -31,6 +30,7 @@ class Product(Resource):
     
     @cache.cached(timeout=300)
     def getAllProducts(self, cateId):
+        print("there is no cache")
         result = []
         if cateId is None:
             products = ProductDisplayModel.query.order_by(ProductDisplayModel.goodId).all()

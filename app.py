@@ -44,15 +44,15 @@ def verify_password(username, password):
     return False
 
 @app.route("/")
-@cache.cached(timeout=300)
 @auth.login_required
+@cache.cached(timeout=300)
 def hello():
     print("there is no cache")
     return "Hello! Do not try to spy me!"
 
 @app.route("/spec")
-@cache.cached(timeout=300)
 @auth.login_required
+@cache.cached(timeout=300)
 def spec():
     print("there is no cache")
     swag = swagger(app)

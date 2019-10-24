@@ -28,7 +28,6 @@ def test_get_products(client):
     assert data['data'][0]['price'] == 0
     assert data['data'][0]['image'] == 'https://ehs-shop.tyson711.now.sh/static/images/470x600-01.jpg'
     assert data['data'][0]['description'] == 'This is description'
-    assert data['data'][0]['stylesId'] == 'a0015,a0016'
     assert data['data'][0]['promoMsg'] == '30% OFF'
 
 
