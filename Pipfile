@@ -4,6 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "*"
+flake8 = "*"
+pytest-flask = "*"
+pytest-cov = "*"
+pytest-flask-sqlalchemy = "*"
+v = {editable = true,version = "*"}
 
 [packages]
 aniso8601 = "==7.0.0"
@@ -41,6 +47,8 @@ pyjwt = "*"
 flask-swagger = "*"
 flask-cors = "*"
 psycopg2 = "*"
+flask-caching = "*"
+flask-httpauth = "*"
 
 [requires]
 python_version = "3.7"

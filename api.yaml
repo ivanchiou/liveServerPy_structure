@@ -111,7 +111,53 @@ paths:
           schema:
             type: "string"
         400:
-          description: "Invalid status value"          
+          description: "Invalid status value"
+  /checkout:
+      post:
+        tags:
+        - "checkout"
+        summary: "Checkout to create order"
+        description: "Checkout to create order"
+        operationId: "checkoutToOrder"
+        produces:
+        - "application/xml"
+        - "application/json"
+        parameters:
+        - name: "goodId"
+          in: "path"
+          description: "指定哪個商品ID"
+          required: true
+          type: "string"
+        responses:
+          200:
+            description: "successful operation"
+            schema:
+              type: "string"
+          400:
+            description: "Invalid status value"
+  /complete:
+    get:
+      tags:
+      - "complete"
+      summary: "Get completed order"
+      description: "Get completed order info"
+      operationId: "getCompleteOrder"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "access_token"
+        in: "query"
+        description: "指定用戶token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid status value"             
 definitions:
   Product:
     type: "object"

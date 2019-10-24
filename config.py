@@ -1,4 +1,6 @@
 import os
+from flask_httpauth import HTTPBasicAuth
+from flask_caching import Cache
 pjdir = os.path.abspath(os.path.dirname(__file__))
 POSTGRES = {
     'user': '',
@@ -26,3 +28,6 @@ config = {
     'production': ProdConfig,
     'default': DevConfig
 }
+
+auth = HTTPBasicAuth()
+cache = Cache(config={'CACHE_TYPE': 'simple'})
