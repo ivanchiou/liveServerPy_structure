@@ -60,12 +60,10 @@ class StyleInfoDisplayModel(db.Model):
         }
 
 class ProductStyleInfoRelationModel(db.Model):
-    pid = db.Column(db.Integer, primary_key=True)
-    styleId = db.Column(db.String(80), db.ForeignKey('styleInfo.styleId'))
-    goodId = db.Column(db.Integer)
+    styleId = db.Column(db.String(80), db.ForeignKey('styleInfo.styleId'), primary_key=True)
+    goodId = db.Column(db.Integer, primary_key=True)
 
     def __init__(self, styleId, goodId):
-        self.pid = uuid.uuid1().int>>100
         self.styleId = styleId
         self.goodId = goodId
 
@@ -82,7 +80,6 @@ class ProductStyleInfoRelationModel(db.Model):
     @property
     def data(self):
         return {
-            "pid": self.pid,
             "styleId": self.styleId,
             "goodId": self.goodId
         }
@@ -108,10 +105,13 @@ class ProductDisplayModel(db.Model):
         self.description = description
         self.cateId = cateId
         for index in range(len(styles)):
-            psr = ProductStyleInfoRelationModel(styles[index], goodId)
-            if app is not None:
-                with app.app_context():
-                    psr.save_to_db()
+            try:
+                psr = ProductStyleInfoRelationModel(styles[index], goodId)
+                if app is not None:
+                    with app.app_context():
+                        psr.save_to_db()
+            except:
+                pass
 
     def __repr__(self):
         return '<ProductModel | ProductDisplayModel %r>' % self.name

@@ -192,6 +192,7 @@ class Complete(Resource):
                     if order['payment'] == PayementType.ATM.value:
                         payment["bank"] = "永豐銀行"
                         payment["account"] = "20191022019102"
+                    UserBuyModel.query.filter_by(token=tokenID).delete()
                     UserModel.query.filter_by(token=tokenID).delete()
                     db.session.commit()
                     return {
@@ -201,8 +202,12 @@ class Complete(Resource):
                         },
                         "payment": payment
                     }
-            except:
-                pass
+            except BaseException as e:
+                print('BaseException', e)
+                return {
+                    'isSuccess': False,
+                    'message': e.args
+                }
             return {
                 "isSuccess": False,
                 "message": 'There is no order created.'
