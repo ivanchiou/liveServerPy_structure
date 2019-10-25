@@ -102,7 +102,45 @@ paths:
       parameters:
       - name: "goodId"
         in: "path"
-        description: "指定哪個商品ID"
+        description: "商品ID"
+        required: true
+        type: "string"
+      - name: "styleId"
+        in: "path"
+        description: "商品樣式"
+        required: true
+        type: "string"
+      - name: "quantity"
+        in: "path"
+        description: "商品數量"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid status value"
+  /basket/{goodId}:
+    delete:
+      tags:
+      - "basket"
+      summary: "delete basket"
+      description: "Delete a product from basket"
+      operationId: "deleteProductFromBasket"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "access_token"
+        in: "query"
+        description: "指定用戶token"
+        required: true
+        type: "string"
+      - name: "goodId"
+        in: "path"
+        description: "商品ID"
         required: true
         type: "string"
       responses:
@@ -118,21 +156,22 @@ paths:
         - "checkout"
         summary: "Checkout to create order"
         description: "Checkout to create order"
-        operationId: "checkoutToOrder"
+        operationId: "checkoutToOrder2"
         produces:
         - "application/xml"
         - "application/json"
         parameters:
-        - name: "goodId"
-          in: "path"
-          description: "指定哪個商品ID"
-          required: true
-          type: "string"
+          - in: "body"
+            name: "body"
+            description: "order placed for purchasing the pet"
+            required: true
+            schema:
+              $ref: "#/definitions/Checkout"
         responses:
           200:
             description: "successful operation"
             schema:
-              type: "string"
+              $ref: "#/definitions/Checkout_success"
           400:
             description: "Invalid status value"
   /complete:
@@ -151,13 +190,18 @@ paths:
         description: "指定用戶token"
         required: true
         type: "string"
+      - name: "orderId"
+        in: "query"
+        description: "orderId"
+        required: true
+        type: "string"
       responses:
         200:
           description: "successful operation"
           schema:
             type: "string"
         400:
-          description: "Invalid status value"             
+          description: "Invalid status value"
 definitions:
   Product:
     type: "object"
@@ -182,6 +226,51 @@ definitions:
         format: "int64"
     xml:
       name: "Product"
+  Checkout:
+    type: "object"
+    properties:
+      products:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            goodid:
+              type: "integer"
+              format: "int64"
+            quantity:
+              type: "integer"
+              format: "int64"
+      payment:
+        type: "integer"
+        format: "int64"
+      invoice:
+        type: "integer"
+        format: "int32"
+      receiver:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            description: "name"
+          phone:
+            type: "string"
+            description: "phone number"
+          addr1:
+            type: "string"
+            description: "address1"
+          addr2:
+            type: "string"
+            description: "address2"
+  Checkout_success:
+    type: "object"
+    properties:
+      isSuccess:
+        type: "boolean"
+      orderId:
+        type: "integer"
+        format: "int64"
+      message:
+        type: "string"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"

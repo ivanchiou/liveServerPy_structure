@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "isSuccess",
+    "message"
+  ],
+  "property": {
+    "isSuccess": {
+      "type": "bool",
+      "pattern": "false"
+    },
+    "message": {
+      "type": "string"
+    }
+  }
+}

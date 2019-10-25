@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "required": [
+    "isSuccess",
+    "orderId",
+    "message"
+  ],
+  "property": {
+    "isSuccess": {
+      "type": "bool"
+    },
+    "orderId": {
+      "type": "string",
+      "pattern": "[0-9]{9}"
+    },
+    "message": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "required": [
+    "order",
+    "payment"
+  ],
+  "property": {
+    "order": {
+      "type": "object",
+      "required": [
+        "id",
+        "time"
+      ],
+      "property": {
+        "id": {
+          "type": "integer"
+        },
+        "time": {
+          "type": "string"
+        }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "required": [
+        "amount",
+        "bank",
+        "account"
+      ],
+      "property": {
+        "amount": {
+          "type": "integer"
+        },
+        "bank": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

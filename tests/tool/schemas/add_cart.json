@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "isSuccess",
+    "access_token"
+  ],
+  "property": {
+    "isSuccess": {
+      "type": "bool",
+      "pattern": "false"
+    },
+    "access_token": {
+      "type": "string"
+    }
+  }
+}

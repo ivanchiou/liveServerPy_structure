@@ -1,0 +1,64 @@
+{
+  "type": "array",
+  "item": {
+    "type": "object",
+    "required": [
+      "goodId",
+      "name",
+      "price",
+      "promoMsg",
+      "image",
+      "url",
+      "desceiption",
+      "styleInfo",
+      "quantity"
+    ],
+    "property": {
+      "goodid": {
+        "type": "integet"
+      },
+      "name": {
+        "type": "string"
+      },
+      "price": {
+        "type": "integer"
+      },
+      "promoMsg": {
+        "type": "string"
+      },
+      "image": {
+        "type": "string",
+        "pattern": "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)"
+      },
+      "url": {
+        "type": "string",
+        "pattern": "^(http://www\\.|https://www\\.|http://|https://)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$"
+      },
+      "description": {
+        "type": "string"
+      },
+      "styleInfo": {
+        "type": "object",
+        "required": [
+          "value",
+          "title",
+          "quantity"
+        ],
+        "property": {
+          "value": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          }
+        }
+      },
+      "quantity": {
+        "type": "integer"
+      }
+    }
+  }
+}
