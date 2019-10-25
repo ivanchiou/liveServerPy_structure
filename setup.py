@@ -155,7 +155,6 @@ setup(
                       "Flask-SQLAlchemy == 2.4.0",
                       "Jinja2 == 2.10.1",
                       "MarkupSafe == 1.1.1",
-                      "Pillow == 6.1.0",
                       "PyPubSub == 4.0.3",
                       "SQLAlchemy == 1.3.8",
                       "Werkzeug == 0.15.6",
