@@ -4,11 +4,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from Controllers.Product import *
 from Controllers.Cart import *
+from Controllers.FB import *
 from Models.db__init import db_init, db
 from Models.ProductModel import *
 from flask_swagger import swagger
 from swagger_ui import flask_api_doc
-from config import config, auth, cache
+from config import config, auth, cache, USERS_TOKEN
 
 app = Flask(__name__, static_url_path='/static')
 cache.init_app(app)
@@ -17,11 +18,6 @@ app.config.from_object(config['default'])
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db_init(app)
 api = Api(app)
-
-users = {
-    "Ivan": generate_password_hash("xxx"),
-    "Tyson": generate_password_hash("xxx")
-}
 
 flask_api_doc(app, config_path='./api.yaml', url_prefix='/api/v1/doc', title='API doc')
 
@@ -39,8 +35,8 @@ class APIDocs(Resource):
 
 @auth.verify_password
 def verify_password(username, password):
-    if username in users:
-        return check_password_hash(users.get(username), password)
+    if username in USERS_TOKEN:
+        return check_password_hash(USERS_TOKEN.get(username), password)
     return False
 
 @app.route("/")
@@ -49,6 +45,10 @@ def verify_password(username, password):
 def hello():
     print("there is no cache")
     return "Hello! Do not try to spy me!"
+
+api.add_resource(FBWebhook, '/FBWebhook', '/FBWebhook/') 
+api.add_resource(FBLiveComment, '/getLiveVideoComment', '/getLiveVideoComment/')
+api.add_resource(FBSendToChat, '/sendToFBChat', '/sendToFBChat/')
 
 @app.route("/spec")
 @auth.login_required

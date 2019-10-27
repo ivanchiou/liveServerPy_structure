@@ -1,6 +1,7 @@
 import os
 from flask_httpauth import HTTPBasicAuth
 from flask_caching import Cache
+from werkzeug.security import generate_password_hash, check_password_hash
 pjdir = os.path.abspath(os.path.dirname(__file__))
 POSTGRES = {
     'user': '',
@@ -9,6 +10,8 @@ POSTGRES = {
     'host': '',
     'port': '',
 }
+
+FB_TOKEN = ''
 
 class Config(object):
     pass
@@ -27,6 +30,11 @@ config = {
     'development': DevConfig,
     'production': ProdConfig,
     'default': DevConfig
+}
+
+USERS_TOKEN = {
+    "Ivan": generate_password_hash("xxx"),
+    "Tyson": generate_password_hash("xxx")
 }
 
 auth = HTTPBasicAuth()

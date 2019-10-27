@@ -7,6 +7,26 @@ from json import JSONEncoder
 parser = reqparse.RequestParser()
 parser.add_argument('cate')
 
+class ProductObj:
+    def __init__(self, goodId):
+        self.product = ProductDisplayModel.query.filter_by(goodId=goodId).first().data
+        styles = self.product['stylesId'].split(",")
+        del self.product['stylesId']
+        self.product['styleInfo'] = []
+        for index in range(len(styles)):
+            style = db.session.query(StyleInfoDisplayModel).filter_by(styleId=styles[index]).first().data
+            self.product['styleInfo'].append(style)
+    
+class ProductObjs:
+    def __init__(self):
+        self.products = {}
+    
+    def get_product(self, goodId):
+        if goodId not in self.products:
+            self.products[goodId] = ProductObj(goodId).product
+        return self.products[goodId].copy()
+
+productObjs = ProductObjs()
 class Product(Resource):
     decorators = [auth.login_required]
     # 取得商品(列表)資料
@@ -19,13 +39,7 @@ class Product(Resource):
         if goodId is None:
             result = self.getAllProducts(cateId)
         else:
-            result = ProductDisplayModel.query.filter_by(goodId=goodId).first().data
-            styles = result['stylesId'].split(",")
-            del result['stylesId']
-            result['styleInfo'] = []
-            for index in range(len(styles)):
-                style = db.session.query(StyleInfoDisplayModel).filter_by(styleId=styles[index]).first().data
-                result['styleInfo'].append(style)
+            result = productObjs.get_product(goodId)
         return result
     
     @cache.cached(timeout=300)
