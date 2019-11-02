@@ -1,0 +1,23 @@
+git:
+  quiet: true
+branches:
+  only:
+    - master
+    - /^deploy-.*$/
+- language: python
+  python:
+    - '3.7'
+  before_install:
+    - cd liveServerPy
+  install:
+    - pip install tox pipenv
+  script:
+    - tox
+  deploy:
+    provider: heroku
+    api_key:
+      secure: ${your heroku key}
+      app: ${your heroku app}
+notifications:
+  email:
+  ${your email}
